@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let cuentas=[
+            {titular:'Carlos',saldo:10000},
+            {titular:'Lidia',saldo:12500},
+            {titular:'Alicia',saldo:8500},
+            {titular:'Felipe',saldo:9000}
+        ];
+
+        function mostrarCuentas(cuentas){
+            cuentas.forEach((item,index) => {
+                console.log(`titular:${item.titular}, saldo:${item.saldo}`);
+            });
+        }
+
+        console.log("Antes de ordenar");
+        mostrarCuentas(cuentas);
+        let cuentasOrdenadas=cuentas.sort((c1,c2)=>c1.saldo-c2.saldo);
+        console.log("Depués de ordenar de menos saldo a más saldo");
+        mostrarCuentas(cuentasOrdenadas);
+
+        alert("Ver consola de depuración");
+
+    </script>
+</body>
+</html>

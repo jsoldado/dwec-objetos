@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+
+        class Persona {
+
+
+            constructor(nombre, edad, fumador=false) {
+                this._nombre = nombre;
+                this._edad = edad;
+                this._fumador = fumador;
+            }
+
+            get nombre() {
+                return this._nombre;
+            }
+
+            set nombre(v) {
+                this._nombre = v;
+            }
+
+            get edad() {
+                return this._edad;
+            }
+
+            set edad(v) {
+                if (v >= 0) this._edad = v;
+                else throw new Error("Edad no puede ser negativa");
+            }
+
+            get fumador() {
+                return this._fumador;
+            }
+
+            set fumador(v) {
+                this._fumador = v;
+            }
+
+            toString() {
+                return `Nombre:${this.nombre} edad:${this._edad} fumador:${this._fumador}`;
+            }
+
+            // Método de clase que recibe dos objetos personas y devuelve el que tiene más edad
+            // Se accederá a este método mediante el nombre de la clase: Persona.comparaPersonas(persona1,persona2);
+            static comparaPersonas(p1, p2) {
+                if (p1._edad > p2._edad) return p1;
+                else return p2;
+            }
+
+            cumplirEdad = () =>  {this._edad++;}
+           
+
+            // Propiedad de clase (estática),
+            // Se accederá a ella mediante el nombre de la clase: Persona.NUMERO_CROSOMAS
+            static NUMERO_CROSOMAS = 46;
+
+            personasConMasEdad(...personas) {
+                let personasMayores = [];
+                for (let i = 0; i < personas.length; i++) {
+                    if (personas[i]._edad > this._edad) personasMayores.push(personas[i]);
+                }
+                return personasMayores;
+            }
+
+        }
+
+        class Conductor extends Persona{
+            constructor(nombre,edad,carnet,puntos=15,fumador=false){
+                super(nombre,edad,fumador);
+                this._carnet=carnet;
+                this._puntos=puntos;
+            }
+
+            sancionPuntos(valor){
+                this._puntos = Math.max(0,this._puntos-valor); // Nos aseguramos que los puntos nunca se queden en negativo
+            }
+
+            toString(){
+                return `Nombre:${this._nombre} edad=${this._edad} fumador:${this._fumador} carnet:${this._carnet} puntos:${this._puntos}`;
+            }
+
+        }
+
+        function testeo() {
+            let persona1 = new Persona("Nuria", 40, false);
+            let persona2 = new Persona("Pacheco", 47, true);
+            let persona3 = new Persona("Lidia", 23); // El tercer argumento del constructor es opcional y tendrá valor false si no se asigna
+            let persona4 = new Persona("Paco", 78);
+
+            //Probamos propiedad nombre
+            persona1.nombre="Nuria Román";
+            console.log(persona1.toString());
+            //Probamos método cumplirEdad
+            persona1.cumplirEdad();
+            console.log("Edad de persona1 tras invocar a cumplirEdad");
+            console.log(persona1.toString());
+            //Probamos propiedad edad con un valor válido (lo encerramos en una estructura try porque podría generar una excepción)
+            try {
+                persona1.edad=41
+            } catch (error) {
+                alert(e);
+            }
+            //Probamos propiedad edad con un valor no válido (lo encerramos en una estructura try porque podría generar una excepción)
+            try {
+                persona1.edad=-5;
+            } catch (e) {
+                alert(e);
+            }
+            //Accedemos a la propiedad de clase NUMERO_CROSOMAS
+            console.log("Número cromosomas de una persona:" + Persona.NUMERO_CROSOMAS);
+            //Probamos el método de clase (estático) comparaPersonas
+            let personaMayor=Persona.comparaPersonas(persona1,persona2);
+            console.log("Persona con más edad: " + personaMayor.toString());
+            //Probamos el método de instancia personasConMasEdad
+            let arrayPersonasMayores=persona1.personasConMasEdad(persona2,persona3,persona4);
+            console.log("Personas con edad superior a persona1: " + arrayPersonasMayores);
+
+            let conductor1=new Conductor("Rocío",38,"B1");
+            let conductor2=new Conductor("Raúl",39,"B1,A2",12 );
+
+            conductor2.cumplirEdad();
+            console.log(Conductor.comparaPersonas(conductor1,conductor2));
+            // Sancionamos a conductor2 con 5 puntos
+            conductor2.sancionPuntos(5);
+            console.log(conductor2.toString());
+            //Volvemos a sancionar a conductor2 con 10 puntos (no debe hacerse negativo el número de puntos)
+            conductor2.sancionPuntos(10);
+            console.log(conductor2.toString());
+
+            alert("Ver ventana de depuración");
+        }
+
+
+
+    </script>
+
+    <h1>Objeto Persona</h1>
+    <input type="button" onclick="testeo();" value="Testear">
+</body>
+
+</html>
