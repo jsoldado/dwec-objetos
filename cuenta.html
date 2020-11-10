@@ -8,10 +8,10 @@
 <body>
     <script>
         let cuentas=[
-            {titular:'Carlos',saldo:10000},
-            {titular:'Lidia',saldo:12500},
-            {titular:'Alicia',saldo:8500},
-            {titular:'Felipe',saldo:9000}
+            {titular:'Carlos',saldo:10000,ingresar:function(cantidad){this.saldo += cantidad;},retirar:function(cantidad){this.saldo -= cantidad;}},
+            {titular:'Lidia',saldo:12500,ingresar:function(cantidad){this.saldo += cantidad;},retirar:function(cantidad){this.saldo -= cantidad;}},
+            {titular:'Alicia',saldo:8500,ingresar:function(cantidad){this.saldo += cantidad;},retirar:function(cantidad){this.saldo -= cantidad;}},
+            {titular:'Felipe',saldo:9000,ingresar:function(cantidad){this.saldo += cantidad;},retirar:function(cantidad){this.saldo -= cantidad;}}
         ];
 
         function mostrarCuentas(cuentas){
